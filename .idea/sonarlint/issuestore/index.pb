@@ -22,8 +22,6 @@ E
 0ApiGateway/.mvn/wrapper/maven-wrapper.properties,3/c/3c62af4b2a530c9ec6cf8a0593ca50dd94909c29
 
 OApiGateway/src/test/java/com/example/apigateway/ApiGatewayApplicationTests.java,9/d/9dc6b819e28b4592c1cf187b9ca18e8a039fccca
-B
-ApiGateway/pom.xml,b/3/b34264349f0c5456ea28df0c6a7fc2c4055c3c35
 D
 EurekaServer/HELP.md,a/d/adea3f22eed58c03d15f00ea422d451c1a70a5f0
 E
