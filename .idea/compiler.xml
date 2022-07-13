@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="EurekaServer" />
         <module name="Users" />
+        <module name="ApiConfigServer" />
         <module name="ApiGateway" />
         <module name="SpringCloud" />
         <module name="AccountManagement" />
@@ -17,6 +18,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="AccountManagement" options="-parameters" />
+      <module name="ApiConfigServer" options="-parameters" />
       <module name="ApiGateway" options="-parameters" />
       <module name="EurekaServer" options="-parameters" />
       <module name="Users" options="-parameters" />
