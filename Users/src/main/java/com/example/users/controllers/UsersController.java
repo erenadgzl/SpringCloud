@@ -3,6 +3,7 @@ package com.example.users.controllers;
 import com.example.users.model.CreateUserRequestModel;
 import com.example.users.model.CreateUserResponseModel;
 import com.example.users.model.UserDto;
+import com.example.users.model.UserResponseModel;
 import com.example.users.service.UsersService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -43,5 +44,17 @@ public class UsersController {
 
         CreateUserResponseModel responseModel = modelMapper.map(createdUser, CreateUserResponseModel.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseModel);
+    }
+
+    @GetMapping(
+            value = "/{userId}",
+            consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
+    )
+    public ResponseEntity<UserResponseModel> getUser(@PathVariable String userId) {
+        UserDto userDto = usersService.getUserByUserId(userId);
+        UserResponseModel user = new ModelMapper().map(userDto, UserResponseModel.class);
+
+        return ResponseEntity.ok(user);
     }
 }
