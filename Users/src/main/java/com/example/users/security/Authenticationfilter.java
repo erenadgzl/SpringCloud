@@ -1,7 +1,7 @@
 package com.example.users.security;
 
 import com.example.users.model.LoginRequestModel;
-import com.example.users.model.UserDto;
+import com.example.users.shared.UserDto;
 import com.example.users.service.UsersService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;

@@ -1,5 +1,6 @@
 package com.example.users;
 
+import com.example.users.shared.FeignErrorDecoder;
 import feign.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -33,5 +34,10 @@ public class UsersApplication {
     @Bean
     Logger.Level feignLogger(){
         return Logger.Level.FULL;
+    }
+
+    @Bean
+    FeignErrorDecoder getFeignErrorDecoder(){
+        return new FeignErrorDecoder();
     }
 }

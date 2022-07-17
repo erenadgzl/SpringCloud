@@ -2,7 +2,7 @@ package com.example.users.controllers;
 
 import com.example.users.model.CreateUserRequestModel;
 import com.example.users.model.CreateUserResponseModel;
-import com.example.users.model.UserDto;
+import com.example.users.shared.UserDto;
 import com.example.users.model.UserResponseModel;
 import com.example.users.service.UsersService;
 import org.modelmapper.ModelMapper;

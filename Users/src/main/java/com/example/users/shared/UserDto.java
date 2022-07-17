@@ -1,4 +1,6 @@
-package com.example.users.model;
+package com.example.users.shared;
+
+import com.example.users.model.AlbumResponseModel;
 
 import java.io.Serializable;
 import java.util.List;

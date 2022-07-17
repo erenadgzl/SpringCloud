@@ -4,9 +4,11 @@ import com.example.users.data.AlbumsServiceClient;
 import com.example.users.data.UserEntity;
 import com.example.users.data.UserRepository;
 import com.example.users.model.AlbumResponseModel;
-import com.example.users.model.UserDto;
+import com.example.users.shared.UserDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.User;
@@ -14,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,8 @@ public class UsersServiceImpl implements UsersService {
     //private RestTemplate restTemplate;
     private AlbumsServiceClient albumsServiceClient;
     private Environment environment;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     public UsersServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
@@ -83,7 +86,6 @@ public class UsersServiceImpl implements UsersService {
 
                 });
         List<AlbumResponseModel> albumList = albums.getBody();*/
-
 
         List<AlbumResponseModel> albumList = albumsServiceClient.getAlbums(userId);
         userDto.setAlbums(albumList);
