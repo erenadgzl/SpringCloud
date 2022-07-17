@@ -1,5 +1,6 @@
 package com.example.users.service;
 
+import com.example.users.data.AlbumsServiceClient;
 import com.example.users.data.UserEntity;
 import com.example.users.data.UserRepository;
 import com.example.users.model.AlbumResponseModel;
@@ -7,10 +8,7 @@ import com.example.users.model.UserDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,14 +25,18 @@ public class UsersServiceImpl implements UsersService {
 
     private UserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private RestTemplate restTemplate;
+    //private RestTemplate restTemplate;
+    private AlbumsServiceClient albumsServiceClient;
     private Environment environment;
 
     @Autowired
-    public UsersServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, RestTemplate restTemplate, Environment environment) {
+    public UsersServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
+                            //RestTemplate restTemplate,
+                            AlbumsServiceClient albumsServiceClient, Environment environment) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.restTemplate = restTemplate;
+        this.albumsServiceClient = albumsServiceClient;
+        //this.restTemplate = restTemplate;
         this.environment = environment;
     }
 
@@ -75,13 +77,15 @@ public class UsersServiceImpl implements UsersService {
             throw new UsernameNotFoundException(userId);
         UserDto userDto = new ModelMapper().map(user, UserDto.class);
 
-        String albumsUrl = String.format(environment.getProperty("albums.url"), userId);
+        /*String albumsUrl = String.format(environment.getProperty("albums.url"), userId);
         ResponseEntity<List<AlbumResponseModel>> albums = restTemplate.exchange(albumsUrl, HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<AlbumResponseModel>>() {
 
                 });
-        List<AlbumResponseModel> albumList = albums.getBody();
+        List<AlbumResponseModel> albumList = albums.getBody();*/
 
+
+        List<AlbumResponseModel> albumList = albumsServiceClient.getAlbums(userId);
         userDto.setAlbums(albumList);
         return userDto;
     }
