@@ -9,8 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,21 +24,15 @@ public class UsersServiceImpl implements UsersService {
 
     private UserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    //private RestTemplate restTemplate;
     private AlbumsServiceClient albumsServiceClient;
-    private Environment environment;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
     public UsersServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
-                            //RestTemplate restTemplate,
-                            AlbumsServiceClient albumsServiceClient, Environment environment) {
+                            AlbumsServiceClient albumsServiceClient) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.albumsServiceClient = albumsServiceClient;
-        //this.restTemplate = restTemplate;
-        this.environment = environment;
     }
 
     @Override
@@ -87,7 +79,10 @@ public class UsersServiceImpl implements UsersService {
                 });
         List<AlbumResponseModel> albumList = albums.getBody();*/
 
+        logger.info("Before calling albums service");
         List<AlbumResponseModel> albumList = albumsServiceClient.getAlbums(userId);
+        logger.info("After calling albums service");
+
         userDto.setAlbums(albumList);
         return userDto;
     }
